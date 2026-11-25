@@ -1,0 +1,22 @@
+
+<html>
+<head>
+     <title>appointment</title>
+</head>
+<body>
+
+
+
+<form method="POST" class="form">
+     {% csrf_token % }
+     Patient Id:<input type="number" name="pid"><br>
+     Patient name:<input type="text"  name="pnm" ><br>
+     Doctor name:<input type="text" name="dnm" ><br>
+     Time:<input type="time"  name="t" ><br>
+     Date:<input type="date"  name="d" ><br>
+     Cause:<input type="text"  name="c" ><br>
+     <button type="submit" >Save</button>
+
+ </form>
+</body>
+</html>

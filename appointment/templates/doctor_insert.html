@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .bg-light-blue { background-color: #e3f2fd; }
+        .bg-sky-blue { background-color: #0284c7; }
+        .btn-sky-blue { background-color: #0284c7; color: #fff; }
+        .btn-sky-blue:hover { background-color: #0369a1; color: #fff; }
+    </style>
+</head>
+<body class="bg-light-blue">
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg bg-sky-blue navbar-dark shadow-sm">
+    <div class="container">
+        <div class="navbar-nav mx-auto gap-3">
+            <a class="nav-link text-white" href="/app/app_home/">Home</a>
+            <a class="nav-link text-white fw-bold active" href="/app/doctor/show/">Doctors</a>
+            <a class="nav-link text-white" href="/app/appointment/show/">Appointment</a>
+            <a class="nav-link text-white" href="/app/patient/show/">Patient</a>
+            <a class="nav-link text-white" href="{% url 'logout' %}">Logout</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Form Container -->
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-sky-blue text-white p-3 text-center">
+                    <h2 class="h4 mb-0">Add Doctor</h2>
+                </div>
+                <div class="card-body p-4 bg-white">
+                    <form method="POST">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <lable for="dn" class="form-lable fw-semibold">Doctor Name</lable>
+                        <input type="text" class="form-control" id="dn" name="dn"
+                            value="{{doctor.dn}}"
+                            pattern="[A-Za-z\s]+"
+                            title="Please enter letters and spaces only.">
+
+
+                        <div class="mb-3">
+                            <label for="sp" class="form-label fw-semibold">Specialist</label>
+                            <input type="text" class="form-control" id="sp" name="sp"
+                            value="{{doctor.sp}}"
+                            pattern="[A-Za-z\s]+"
+                            title="Please enter letters and spaces only.">
+
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="dcon" class="form-label fw-semibold">Contact Number</label>
+
+<input type="tel" class="form-control" id="dcon" name="dcon"
+       value="{{doctor.dcon}}"
+       pattern="[0-9]{10}"
+       title="Please enter a valid 10-digit phone number">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="e" class="form-label fw-semibold">Email Id</label>
+                            <input type="email" class="form-control" id="e" name="e" value="{{doctor.e}}">
+                        </div>
+
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-sky-blue">add</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap 5 JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

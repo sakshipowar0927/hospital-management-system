@@ -1,0 +1,202 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Appointments</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .bg-light-blue {
+            background-color: #e3f2fd;
+        }
+
+        .bg-sky-blue {
+            background-color: #0284c7;
+        }
+
+        .btn-sky-blue {
+            background-color: #0284c7;
+            color: #fff;
+        }
+
+        .btn-sky-blue:hover {
+            background-color: #0369a1;
+            color: #fff;
+        }
+
+        .btn-outline-sky {
+            color: #0284c7;
+            border-color: #0284c7;
+        }
+
+        .btn-outline-sky:hover {
+            background-color: #0284c7;
+            color: #fff;
+        }
+    </style>
+
+</head>
+
+<body class="bg-light-blue">
+
+    <!-- Navbar -->
+
+    <nav class="navbar navbar-expand-lg bg-sky-blue navbar-dark shadow-sm">
+
+        <div class="container">
+
+            <div class="navbar-nav mx-auto gap-3">
+
+                <a class="nav-link text-white" href="/app/app_home/">Home</a>
+
+                <a class="nav-link text-white" href="/app/doctor/show/">Doctors</a>
+
+                <a class="nav-link text-white fw-bold active" href="/app/appointment/show/">
+                    Appointment
+                </a>
+
+                <a class="nav-link text-white" href="/app/patient/show/">Patient</a>
+
+                <a class="nav-link text-white" href="/app/logout/">Logout</a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- Appointment Container -->
+
+    <div class="container my-5">
+
+        <!-- Heading and Add Button -->
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+            <h2 class="page-title mb-0 fw-bold text-dark">
+                Appointments
+            </h2>
+
+            <a href="/app/appointment/insert/" class="btn btn-sky-blue">
+                Add Appointment
+            </a>
+
+        </div>
+
+
+        <!-- Appointment Table -->
+
+        <div class="card shadow-sm border-0">
+
+            <div class="card-body p-0">
+
+                <div class="table-responsive">
+
+                    <table class="table table-hover table-striped align-middle mb-0">
+
+                        <thead class="bg-sky-blue text-white">
+
+                            <tr>
+                                <th>Id</th>
+                                <th>Patient Name</th>
+                                <th>Doctor Name</th>
+                                <th>Time</th>
+                                <th>Date</th>
+                                <th>Cause</th>
+                                <th class="text-center">Edit</th>
+                                <th class="text-center">Delete</th>
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            {% for appointment in appointments %}
+
+                            <tr>
+
+                                <td>{{ appointment.aid }}</td>
+
+                                <td>{{ appointment.pnm }}</td>
+
+                                <td>{{ appointment.dnm }}</td>
+
+                                <td>{{ appointment.t|time:'H:i' }}</td>
+
+                                <td>{{ appointment.d|date:'d-m-Y' }}</td>
+
+                                <td>{{ appointment.c }}</td>
+
+
+                                <!-- Edit -->
+
+                                <td class="text-center">
+
+                                    <a href="{% url 'appointment_update' appointment.aid %}"
+                                       class="btn btn-sm btn-outline-sky">
+
+                                        Edit
+
+                                    </a>
+
+                                </td>
+
+
+                                <!-- Delete -->
+
+                                <td class="text-center">
+
+                                    <a href="{% url 'appointment_delete' appointment.aid %}"
+                                       class="btn btn-sm btn-outline-danger"
+                                       onclick="return confirm('Are you sure you want to delete this appointment?');">
+
+                                        Delete
+
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+                            {% empty %}
+
+                            <tr>
+
+                                <td colspan="8" class="text-center py-4 text-muted">
+
+                                    No appointments available.
+
+                                </td>
+
+                            </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Bootstrap JS -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

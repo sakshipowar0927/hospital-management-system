@@ -1,0 +1,330 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Wellness Hospital Login</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        /* ================= GENERAL ================= */
+        body {
+            min-height: 100vh;
+            background-color: #91aef0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* ================= NAVBAR ================= */
+        .navbar {
+            background-color: white;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.10);
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+            color: #43b9a5;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .nav-links a:hover {
+            color: #43b9a5;
+        }
+
+        .nav-login {
+            background-color: #65aadd;
+            color: white !important;
+            padding: 10px 25px;
+            border-radius: 25px;
+        }
+
+        /* ================= MAIN CONTAINER ================= */
+        .login-card {
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            background-color: white;
+            height: 650px;
+        }
+
+        /* ================= LEFT HELLO SIDE ================= */
+        .left-section {
+            background-color: #a9dedd;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .left-section::before {
+            content: "";
+            position: absolute;
+            width: 720px;
+            height: 500px;
+            background-color: white;
+            border-radius: 0 0 55% 0;
+            top: -170px;
+            left: -120px;
+            z-index: 1;
+        }
+
+        .left-section::after {
+            content: "";
+            position: absolute;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 12px solid #d9f2ed;
+            top: 30px;
+            left: 20px;
+            z-index: 2;
+        }
+
+        /* HELLO */
+        .hello {
+            position: absolute;
+            top: 150px;
+            left: 80px;
+            z-index: 3;
+            font-size: 55px;
+            font-weight: bold;
+            color: #292929;
+        }
+
+        .hello span {
+            color: #42bda8;
+        }
+
+        /* Description */
+        .description {
+            position: absolute;
+            top: 245px;
+            left: 80px;
+            z-index: 3;
+            font-size: 20px;
+            line-height: 1.6;
+            color: #666;
+        }
+
+        /* Bottom circle */
+        .bottom-circle {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background-color: #99d5d1;
+            bottom: -150px;
+            left: -80px;
+            z-index: 2;
+        }
+
+        /* ================= RIGHT LOGIN SIDE ================= */
+        .right-section {
+            background-color: #f7f8fa;
+            height: 100%;
+        }
+
+        .right-section h2 {
+            color: #4ab6a5;
+            font-size: 30px;
+        }
+
+        /* Input styling */
+        .custom-input {
+            border: none;
+            border-bottom: 1px solid #ccc;
+            background: transparent;
+            border-radius: 0;
+            padding: 10px;
+            font-size: 15px;
+        }
+
+        .custom-input:focus {
+            background: transparent;
+            box-shadow: none;
+            border-bottom: 2px solid #62aad9;
+        }
+
+        /* Login button */
+        .login-button {
+            border-radius: 30px;
+            background-color: #62aad9;
+            color: white;
+            font-size: 17px;
+            border: none;
+            height: 50px;
+        }
+
+        .login-button:hover {
+            background-color: #4e98c8;
+            color: white;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .login-card {
+                height: auto;
+            }
+
+            .left-section {
+                height: 400px;
+            }
+
+            .right-section {
+                height: auto;
+            }
+
+            .hello {
+                left: 40px;
+                font-size: 45px;
+            }
+
+            .description {
+                left: 40px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ================= NAVIGATION BAR ================= -->
+    <nav class="navbar navbar-expand-lg px-4 px-md-5 py-3">
+        <div class="container-fluid">
+
+            <div class="logo">
+                Wellness
+            </div>
+
+            <ul class="nav-links d-flex align-items-center gap-3 gap-md-4 list-unstyled mb-0 ms-auto">
+
+                <li>
+                    <a href="{% url 'login' %}">Home</a>
+                </li>
+
+                <li>
+                    <a href="/app/about/">About</a>
+                </li>
+
+                <li>
+                    <a href="{% url 'login' %}" class="nav-login">Login</a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ================= LOGIN CONTAINER ================= -->
+    <div class="container my-5">
+        <div class="row justify-content-center">
+
+            <div class="col-12 col-xl-10">
+
+                <div class="card border-0 login-card">
+
+                    <div class="row g-0 h-100 align-items-stretch">
+
+                        <!-- ================= LEFT SIDE ================= -->
+                        <div class="col-md-6 left-section position-relative">
+
+                            <h1 class="hello">
+                                HELLO<span>!</span>
+                            </h1>
+
+                            <p class="description">
+                                Please enter your details<br>
+                                to continue
+                            </p>
+
+                            <div class="bottom-circle"></div>
+
+                        </div>
+
+                        <!-- ================= RIGHT SIDE ================= -->
+                        <div class="col-md-6 right-section p-4 p-sm-5 d-flex flex-column justify-content-center">
+
+                            <h2 class="text-center mb-5">
+                                Hospital Login
+                            </h2>
+
+                            <!-- LOGIN FORM -->
+                            <form method="POST" action="{% url 'login' %}">
+
+                                {% csrf_token %}
+
+                                <!-- Username -->
+                                <div class="mb-4">
+
+                                    <label for="username" class="form-label fw-bold text-secondary">
+                                        Username or E-mail
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        class="form-control custom-input"
+                                        id="username"
+                                        name="username"
+                                        placeholder="Enter username"
+                                        required
+                                    >
+
+                                </div>
+
+                                <!-- Password -->
+                                <div class="mb-4">
+
+                                    <label for="password" class="form-label fw-bold text-secondary">
+                                        Password
+                                    </label>
+
+                                    <input
+                                        type="password"
+                                        class="form-control custom-input"
+                                        id="password"
+                                        name="password"
+                                        placeholder="Enter password"
+                                        required
+                                    >
+
+                                </div>
+
+                                <!-- Login Button -->
+                                <div class="d-flex justify-content-center mt-5 mb-3">
+
+                                    <button type="submit" class="login-button w-75 p-0">
+                                        Login
+                                    </button>
+
+                                </div>
+
+                            </form>
+
+                            <!-- LOGIN ERROR MESSAGE -->
+                            {% if error %}
+                                <p class="text-center fw-bold text-danger mt-3">
+                                    {{ error }}
+                                </p>
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

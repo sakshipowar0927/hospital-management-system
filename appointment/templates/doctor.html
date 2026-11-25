@@ -1,0 +1,24 @@
+<html>
+<head>
+     <title>insert</title>
+</head>
+<body>
+
+
+
+
+<form method="POST" class="form">
+    {% csrf_token %}
+     Doctor Id:<input type="number" name="did">
+     Doctor name:<input type="text"  name="dn"><br><br>
+
+     Specialist:<input type="text" name="sp"><br><br>
+     Contact number:<input type="number"  name="dcon" ><br><br>
+     Email Id:<input type="email"   name="e" ><br><br>
+
+        <button type="submit">Add</button>
+
+
+ </form>
+</body>
+</html>

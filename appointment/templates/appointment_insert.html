@@ -1,0 +1,196 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Form</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .bg-light-blue { background-color: #e3f2fd; }
+        .bg-sky-blue { background-color: #0284c7; }
+        .btn-sky-blue { background-color: #0284c7; color: #fff; }
+        .btn-sky-blue:hover { background-color: #0369a1; color: #fff; }
+    </style>
+</head>
+
+<body class="bg-light-blue">
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg bg-sky-blue navbar-dark shadow-sm">
+    <div class="container">
+        <div class="navbar-nav mx-auto gap-3">
+            <a class="nav-link text-white" href="/app/app_home/">Home</a>
+            <a class="nav-link text-white" href="/app/doctor/show/">Doctors</a>
+            <a class="nav-link text-white fw-bold active" href="/app/appointment/show/">Appointment</a>
+            <a class="nav-link text-white" href="/app/patient/show/">Patient</a>
+            <a class="nav-link text-white" href="/app/login/">Logout</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Form Container -->
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm border-0">
+
+                <div class="card-header bg-sky-blue text-white p-3 text-center">
+                    <h2 class="h4 mb-0">Enter Details For Appointment</h2>
+                </div>
+
+                <div class="card-body p-4 bg-white">
+
+                    <form method="POST" id="appointmentForm">
+                        {% csrf_token %}
+
+                        <!-- Patient Name Dropdown -->
+                        <div class="mb-3">
+                            <label for="pnm" class="form-label fw-semibold">Patient Name</label>
+
+                            <select class="form-select" id="pnm" name="pnm" required>
+                                <option value="">Select Patient</option>
+
+                                {% for pat in patients %}
+                                    <option value="{{ pat.pnm }}" {% if appointment.pnm == pat.pnm %}selected{% endif %}>
+                                        {{ pat.pnm }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Doctor Name Dropdown -->
+                        <div class="mb-3">
+                            <label for="dnm" class="form-label fw-semibold">Doctor Name</label>
+
+                            <select class="form-select" id="dnm" name="dnm" required>
+                                <option value="">Select Doctor</option>
+
+                                {% for doc in doctors %}
+                                    <option value="{{ doc.dn }}" {% if appointment.dnm == doc.dn %}selected{% endif %}>
+                                        {{ doc.dn }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Time -->
+                        <div class="mb-3">
+                            <label for="t" class="form-label fw-semibold">Time</label>
+
+                            <input
+                                type="time"
+                                class="form-control"
+                                id="t"
+                                name="t"
+                                value="{{ appointment.t }}"
+                                min="09:00"
+                                max="20:00"
+                                required
+                            >
+
+                            <small class="text-muted">
+                                Appointment time must be between 9:00 AM and 8:00 PM.
+                            </small>
+                        </div>
+
+                        <!-- Date -->
+                        <div class="mb-3">
+                            <label for="d" class="form-label fw-semibold">Date</label>
+
+                            <input
+                                type="date"
+                                class="form-control"
+                                id="d"
+                                name="d"
+                                value="{{ appointment.d|date:'Y-m-d' }}"
+                                required
+                            >
+                        </div>
+
+                        <!-- Cause -->
+                        <div class="mb-3">
+                            <label for="c" class="form-label fw-semibold">Cause</label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="c"
+                                name="c"
+                                value="{{ appointment.c }}"
+                                pattern="[A-Za-z\s]+"
+                                title="Please enter letters and spaces only."
+                            >
+                        </div>
+
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-sky-blue">Add</button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap 5 JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Date and Time Validation -->
+<script>
+
+    // Prevent past dates
+    var dateInput = document.getElementById("d");
+
+    var today = new Date();
+
+    var year = today.getFullYear();
+    var month = String(today.getMonth() + 1).padStart(2, '0');
+    var day = String(today.getDate()).padStart(2, '0');
+
+    var currentDate = year + "-" + month + "-" + day;
+
+    dateInput.min = currentDate;
+
+
+    // Time validation
+    var timeInput = document.getElementById("t");
+
+    document.getElementById("appointmentForm").addEventListener("submit", function(event) {
+
+        var selectedTime = timeInput.value;
+
+        if (selectedTime < "09:00" || selectedTime > "20:00") {
+
+            event.preventDefault();
+
+            alert("Please select appointment time between 9:00 AM and 8:00 PM.");
+
+            timeInput.focus();
+
+            return false;
+        }
+
+        if (dateInput.value < currentDate) {
+
+            event.preventDefault();
+
+            alert("Past dates are not allowed. Please select today or a future date.");
+
+            dateInput.focus();
+
+            return false;
+        }
+
+    });
+
+</script>
+
+</body>
+</html>
+```
